@@ -1,0 +1,34 @@
+{
+  "name": "envgo",
+  "version": "0.0.1",
+  "description": "Load environment variables from .env file and run commands",
+  "repository": "https://github.com/pchalupa/envgo",
+  "bugs": {
+    "url": "https://github.com/pchalupa/envgo/issues"
+  },
+  "author": "pchalupa <chalupa.petr93@gmail.com> (https://github.com/pchalupa)",
+  "license": "MIT",
+  "bin": {
+    "envgo": "bin/index.js"
+  },
+  "scripts": {
+    "prepublish": "cargo build --release"
+  },
+  "files": [
+    "bin/",
+    "target/release/envgo"
+  ],
+  "keywords": [
+    "env",
+    "environment",
+    "rust",
+    "cli"
+  ],
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
