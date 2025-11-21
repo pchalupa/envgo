@@ -1,9 +1,9 @@
+use std::collections::HashMap;
 use std::env;
 use std::fs::File;
+use std::io::{BufRead, BufReader};
 use std::path::Path;
 use std::process::Command;
-use std::collections::HashMap;
-use std::io::{BufRead, BufReader};
 
 const ENV_FILES: &[&str] = &[".env"];
 
@@ -20,8 +20,8 @@ fn main() {
         Err(_) => {
             eprintln!("Could not open the file!");
             std::process::exit(1);
-        },
-        Ok(file) => file
+        }
+        Ok(file) => file,
     };
     let reader = BufReader::new(file);
 
@@ -32,8 +32,8 @@ fn main() {
             Err(_) => {
                 eprintln!("Unable to read line!");
                 std::process::exit(1)
-            },
-            Ok(it) => it
+            }
+            Ok(it) => it,
         };
 
         if let Some((key, value)) = input_line.split_once("=") {
@@ -41,8 +41,12 @@ fn main() {
         }
     }
 
-    Command::new(command).args(command_args).envs(&envs).status().unwrap_or_else(|e| {
-        eprintln!("Failed to execute command: {}", e);
-        std::process::exit(1);
-    });
+    Command::new(command)
+        .args(command_args)
+        .envs(&envs)
+        .status()
+        .unwrap_or_else(|e| {
+            eprintln!("Failed to execute command: {}", e);
+            std::process::exit(1);
+        });
 }
