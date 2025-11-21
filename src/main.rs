@@ -9,7 +9,10 @@ const ENV_FILES: &[&str] = &[".env"];
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let command = &args[1];
+    let command = args.get(1).unwrap_or_else(|| {
+        eprintln!("Usage: envgo <command> [args...]");
+        std::process::exit(1)
+    });
     let command_args = &args[2..];
 
     let path = Path::new(ENV_FILES[0]);
