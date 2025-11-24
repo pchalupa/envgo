@@ -7,10 +7,20 @@ use std::process::Command;
 
 const ENV_FILES: &[&str] = &[".env"];
 
+mod logger {
+    pub fn info(message: &str) {
+        println!("\x1b[90m{}\x1b[0m", message);
+    }
+
+    pub fn error(message: &str) {
+        eprintln!("\x1b[31m{}\x1b[0m", message);
+    }
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     let command = args.get(1).unwrap_or_else(|| {
-        eprintln!("Usage: envgo <command> [args...]");
+        logger::error("Usage: envgo <command> [args...]");
         std::process::exit(1)
     });
     let command_args = &args[2..];
@@ -18,7 +28,7 @@ fn main() {
     let path = Path::new(ENV_FILES[0]);
     let file = match File::open(path) {
         Err(_) => {
-            eprintln!("Could not open the file!");
+            logger::error("Could not open the file!");
             std::process::exit(1);
         }
         Ok(file) => file,
@@ -30,16 +40,23 @@ fn main() {
     for line in reader.lines() {
         let input_line = match line {
             Err(_) => {
-                eprintln!("Unable to read line!");
+                logger::error("Unable to read line!");
                 std::process::exit(1)
             }
             Ok(it) => it,
         };
 
         if let Some((key, value)) = input_line.split_once("=") {
-            envs.insert(key.trim().to_string(), value.trim().to_string());
+            let key = key.trim();
+            let value = value.trim();
+            envs.insert(key.to_string(), value.to_string());
         }
     }
+
+    let keys = envs.keys().map(|key| key.as_str()).collect::<Vec<_>>().join(", ");
+    let files = ENV_FILES.join(", ");
+
+    logger::info(&format!("Environment variables loaded from the {}: {}", files, keys));
 
     Command::new(command)
         .args(command_args)
