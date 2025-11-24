@@ -1,6 +1,6 @@
 {
   "name": "envgo",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Load environment variables from .env file and run commands",
   "repository": "https://github.com/pchalupa/envgo",
   "bugs": {
@@ -9,11 +9,12 @@
   "author": "pchalupa <chalupa.petr93@gmail.com> (https://github.com/pchalupa)",
   "license": "MIT",
   "bin": {
-    "envgo": "bin/index.mjs"
+    "envgo": "bin/envgo"
   },
   "type": "module",
   "scripts": {
-    "prepublishOnly": "cargo build --release"
+    "build": "cargo build --release && cp target/release/envgo ./bin/envgo",
+    "prepublishOnly": "cargo build --release && cp target/release/envgo ./bin/envgo"
   },
   "files": [
     "bin/",
