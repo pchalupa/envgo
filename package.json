@@ -1,8 +1,10 @@
 {
   "name": "envgo",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Load environment variables from .env file and run commands",
-  "repository": "https://github.com/pchalupa/envgo",
+  "repository": {
+    "url": "git+https://github.com/pchalupa/envgo.git"
+  },
   "bugs": {
     "url": "https://github.com/pchalupa/envgo/issues"
   },
@@ -17,8 +19,7 @@
     "prepublishOnly": "cargo build --release && cp target/release/envgo ./bin/envgo"
   },
   "files": [
-    "bin/",
-    "target/release/envgo"
+    "bin/"
   ],
   "keywords": [
     "env",
