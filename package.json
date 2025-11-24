@@ -1,6 +1,6 @@
 {
   "name": "envgo",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Load environment variables from .env file and run commands",
   "repository": {
     "url": "git+https://github.com/pchalupa/envgo.git"

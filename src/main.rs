@@ -28,7 +28,7 @@ fn main() {
     let path = Path::new(ENV_FILES[0]);
     let file = match File::open(path) {
         Err(_) => {
-            logger::error("Could not open the file!");
+            logger::error("Could not find .env file!");
             std::process::exit(1);
         }
         Ok(file) => file,
