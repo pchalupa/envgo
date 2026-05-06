@@ -5,17 +5,9 @@ use std::io::{BufRead, BufReader};
 use std::path::Path;
 use std::process::Command;
 
+mod logger;
+
 const ENV_FILES: &[&str] = &[".env"];
-
-mod logger {
-    pub fn info(message: &str) {
-        println!("\x1b[90m{}\x1b[0m", message);
-    }
-
-    pub fn error(message: &str) {
-        eprintln!("\x1b[31m{}\x1b[0m", message);
-    }
-}
 
 fn main() {
     let args: Vec<String> = env::args().collect();
